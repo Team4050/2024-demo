@@ -36,7 +36,7 @@ public class RobotContainer {
     configureBindings();
 
     drivetrain.setDefaultCommand(new RunCommand(() -> {
-      double f = -m_driverController.getLeftY();
+      double f = -m_driverController.getRightY(0.04f);
       double t = m_driverController.getRightX(0.04f) / 4; // Previously 1.8, reduce turning rate for cornfest
       drivetrain.set((f + t), (f - t));
     }, drivetrain));
