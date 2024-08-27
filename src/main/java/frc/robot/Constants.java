@@ -18,6 +18,7 @@ public final class Constants {
     public static final int FL = 2;
     public static final int RR = 3;
     public static final int RL = 4;
+    public static final int RH = 5;
   }
 
   public static class OperatorConstants {
