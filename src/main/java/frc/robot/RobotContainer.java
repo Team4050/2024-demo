@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.hazard.HazardXbox;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -25,16 +26,20 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private Drivetrain drivetrain = new Drivetrain();
-
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final HazardXbox m_driverController =
       new HazardXbox(OperatorConstants.kDriverControllerPort);
-
+private Shooter pewPew;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-
+   m_driverController.b().onTrue(new RunCommand(() -> {
+    pewPew.set(1);
+   }, pewPew));
+   m_driverController.b().onFalse(new RunCommand(() -> {
+    pewPew.set(0);
+   }, pewPew));
     drivetrain.setDefaultCommand(new RunCommand(() -> {
       double f = -m_driverController.getRightY(0.04f);
       double t = m_driverController.getRightX(0.04f) / 4; // Previously 1.8, reduce turning rate for cornfest
